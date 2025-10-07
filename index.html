@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="star.gif">
+  <title>RoyHud</title>
+
+  <!-- Khmer Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    /* Prevent horizontal scroll */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: 'Noto Serif Khmer', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    p { text-align: center; }
+
+    header {
+      background: #111;
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    header h1 { font-size: 29px; }
+
+    nav table { border-collapse: collapse; }
+    nav td { padding: 0 15px; }
+    nav a { color: #fff; text-decoration: none; font-size: 18px; transition: 0.3s; }
+    nav a:hover { color: #f39c12; }
+
+    /* Categories Bar */
+    .categories-bar {
+      background: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #ddd;
+    }
+    .categories-bar .cat-link {
+      display: inline-block;
+      background: #111;
+      color: #fff;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    .categories-bar .cat-link:hover { background: #f39c12; }
+
+    /* Video Cover */
+    .video-cover {
+      width: 95%;
+      max-width: 1400px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    .video-cover video {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Main Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 120px calc(100% - 210px) 90px;
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin: 30px auto;
+      position: relative;
+    }
+
+    /* Sidebar */
+    .brandlists {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-height: 270px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 20px;
+      align-self: start;
+    }
+    .brandlists h3 { margin-bottom: 12px; font-size: 18px; }
+    .brand-item a {
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
+      display: block;
+      padding: 4px 0;
+      transition: 0.15s;
+    }
+    .brand-item a:hover { color: #f39c12; }
+
+    /* Products */
+    .brand-section { margin-bottom: 40px; }
+    .brand-section h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      color: #111;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product {
+      position: relative;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .product:hover { transform: translateY(-6px); }
+    .product img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      background: #f5f5f5;
+      padding: 10px;
+    }
+    .product-content { padding: 15px; text-align: center; }
+    .product h4 { margin-bottom: 10px; font-size: 20px; }
+    .product p { margin-bottom: 12px; font-size: 17px; font-weight: bold; }
+    .product button {
+      background: #111; color: #fff; border: none;
+      padding: 10px 18px; border-radius: 6px; cursor: pointer;
+      transition: background 0.3s; font-size: 16px;
+    }
+    .product button:hover { background: #f39c12; }
+
+    .new-tag {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: #6e6e6e; color: #fff;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: absolute;
+      bottom: 39px;
+      left: 20px;
+      background: #111;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .back-to-top:hover { background: #f39c12; }
+
+    /* Tablet */
+    @media (max-width: 1270px) {
+      .container { grid-template-columns: 100%; }
+      .products { grid-template-columns: repeat(2, 1fr); }
+      .brandlists, .brand-pst { margin-bottom: 20px; }
+      .video-cover video { height: auto; }
+    }
+
+    /* Phone */
+    @media (max-width: 720px) {
+      .products { grid-template-columns: 1fr; }
+      header { flex-direction: column; text-align: center; }
+      nav table { margin-top: 10px; }
+      .video-cover video { height: auto; }
+    }
+
+    footer {
+      background: #111; color: #fff; text-align: center;
+      padding: 20px; margin-top: 40px;
+    }
+
+    h4 { font-size: 18px; color:#505050; }
+
+    marquee {
+      font-style: oblique;
+      background-color: #111;
+      color: rgb(177, 177, 177);
+      background-size: cover;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="RoyHud Logo" style="height: 50px;">
+    <nav>
+      <table>
+        <tr>
+          <td><a href="index.html">Home</a></td>
+          <td><a href="#brandA">Products</a></td>
+          <td><a href="contact.html">Contact</a></td>
+          <td><a href="khmer.html"><img src="khmer.png" style="width: 30px;"></a></td>
+          <td><a href="index.html"><img src="uk.png" style="width: 30px;"></a></td>
+        </tr>
+      </table>
+    </nav>
+  </header>
+  <marquee>This website is created by Seng Bunnarong SW4, 23th Gen, 1st year, 2nd semester for WDI final project and taught by teacher Ry Visan (SETEC INSTITUTE)</marquee>
+  <!-- Categories Bar -->
+  <div class="categories-bar">
+    <a href="corteiz.html" class="cat-link">Corteiz</a>
+    <a href="denim.html" class="cat-link">Denim Tears</a>
+    <a href="sp5der.html" class="cat-link">Sp5der</a>
+    <a href="kdmv.html" class="cat-link">UN:CM</a>
+  </div>
+
+  <!-- Video Cover -->
+  <div class="video-cover">
+    <video autoplay muted loop playsinline>
+      <source src="hu (2).mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+  </div>
+
+  <!-- Main Section -->
+  <main class="container">
+    <!-- Left Sidebar -->
+    <div class="brandlists">
+      <h3>Brands</h3>
+      <div class="brand-item"><div class="brand-info"><a href="#brandA">Corteiz</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="#brandB">Denim Tears</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="#brandC">Sp5der</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="#brandD">UN:CM</a></div></div>
+    </div>
+
+    <!-- Products (Middle) -->
+    <section>
+      <!-- Brand A -->
+      <div id="brandA" class="brand-section">
+        <h2>Corteiz</h2>
+        <div class="products">
+          <div class="product"><span class="new-tag">New</span><img src="s.webp"><div class="product-content"><h4>Superior Rust</h4><p>$189.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="sd.webp"><div class="product-content"><h4>AllStarz Satin</h4><p>$219.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="sdd.webp"><div class="product-content"><h4>AllStarz Applique</h4><p>$249.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="sddd.webp"><div class="product-content"><h4>AllStarz Applique (Gray)</h4><p>$199.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+        </div>
+      </div>
+
+      <!-- Brand B -->
+      <div id="brandB" class="brand-section">
+        <h2>Denim Tears</h2>
+        <div class="products">
+          <div class="product"><span class="new-tag">New</span><img src="a.webp"><div class="product-content"><h4>DT - Monochrome</h4><p>$19.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="ad.webp"><div class="product-content"><h4>DT - Royal Blue</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="add.webp"><div class="product-content"><h4>DT - Red</h4><p>$89.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="addd.webp"><div class="product-content"><h4>DT - Gray</h4><p>$29.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+        </div>
+      </div>
+
+      <!-- Brand C -->
+      <div id="brandC" class="brand-section">
+        <h2>Sp5der</h2>
+        <div class="products">
+          <div class="product"><span class="new-tag">New</span><img src="bd.webp"><div class="product-content"><h4>Sp5der - TC Blue</h4><p>$249.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="b.webp"><div class="product-content"><h4>Sp5der - Acai Purple</h4><p>$269.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="bdd.webp"><div class="product-content"><h4>Sp5der - Pink v2</h4><p>$239.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="bddd.webp"><div class="product-content"><h4>Sp5der - Maroon</h4><p>$289.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+        </div>
+      </div>
+
+      <!-- Brand D -->
+      <div id="brandD" class="brand-section">
+        <h2>UN:CM</h2>
+        <div class="products">
+          <div class="product"><span class="new-tag">New</span><img src="q.webp"><div class="product-content"><h4>PCMKR - Naga</h4><p>$47.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qq.webp"><div class="product-content"><h4>L'Equipe - Kdmu</h4><p>$48.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qqq.webp"><div class="product-content"><h4>Kdussy - Brown</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qqqq.webp"><div class="product-content"><h4>Matrix - Black</h4><p>$50.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑ Top</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 RoyHud. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

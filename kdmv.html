@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="star.gif">
+  <title>RoyHud</title>
+    <!-- Khmer Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Noto Serif Khmer', Arial, sans-serif; }
+    body { background: #f5f5f5; color: #333; }
+    p { text-align: center; }
+
+        marquee {
+      font-style: oblique;
+      background-color: #111;
+      color: rgb(177, 177, 177);
+      background-size: cover;
+    }
+
+    header {
+      background: #111; color: #fff;
+      padding: 15px 30px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    header h1 { font-size: 29px; }
+
+    nav table { border-collapse: collapse; }
+    nav td { padding: 0 15px; }
+    nav a { color: #fff; text-decoration: none; font-size: 18px; transition: 0.3s; }
+    nav a:hover { color: #f39c12; }
+
+    /* Categories Bar */
+    .categories-bar {
+      background: #fff;
+      padding: 20px;
+      display: flex; justify-content: center; gap: 25px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid #ddd;
+    }
+      .categories-bar a {
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: inline-block;
+      }
+      .categories-bar a:hover {
+      background: #f39c12;
+      }
+
+
+    /* Video Cover */
+    .video-cover {
+      width: 95%;
+      max-width: 1400px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    .video-cover video {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Main Layout */
+    .container {
+      display: grid;
+      grid-template-columns: 120px calc(100% - 210px) 90px;
+      gap: 20px;
+      width: 100%;
+      max-width: 1400px;
+      margin: 30px auto;
+      position: relative; /* to anchor the back-to-top */
+    }
+
+    /* Sidebar */
+    .brandlists {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-height: 270px;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 20px;
+      align-self: start;
+    }
+    .brandlists h3 { margin-bottom: 12px; font-size: 18px; }
+    .brand-item a {
+      text-decoration: none;
+      color: #111;
+      font-size: 14px;
+      display: block;
+      padding: 4px 0;
+      transition: 0.15s;
+    }
+    .brand-item a:hover { color: #f39c12; }
+
+    /* Products */
+    .brand-section { margin-bottom: 40px; }
+    .brand-section h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+      color: #111;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 25%);
+      gap: 20px;
+    }
+    .product {
+      position: relative;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .product:hover { transform: translateY(-6px); }
+    .product img { width: 100%; height: auto; object-fit: contain; }
+    .product-content { padding: 15px; text-align: center; }
+    .product h4 { margin-bottom: 10px; font-size: 20px; }
+    .product p { margin-bottom: 12px; font-size: 17px; font-weight: bold; }
+    .product button {
+      background: #111; color: #fff; border: none;
+      padding: 10px 18px; border-radius: 6px; cursor: pointer;
+      transition: background 0.3s; font-size: 16px;
+    }
+    .product button:hover { background: #f39c12; }
+
+    /* New Tag */
+    .new-tag {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: #6e6e6e; color: #fff;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+
+    html, body {
+  overflow-x: hidden;
+}
+
+    /* Back to Top Button */
+    .back-to-top {
+      position: absolute;
+      bottom: 39px;
+      left: 20px;
+      background: #111;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .back-to-top:hover { background: #f39c12; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .container { grid-template-columns: 100%; }
+      .products { grid-template-columns: repeat(2, 50%); }
+      aside.brandlists, aside.brand-pst { margin-bottom: 20px; }
+      .video-cover video { height: 220px; }
+    }
+    @media (max-width: 600px) {
+      .products { grid-template-columns: 100%; }
+      header { flex-direction: column; text-align: center; }
+      nav table { margin-top: 10px; }
+      .video-cover video { height: 180px; }
+    }
+
+    footer {
+      background: #111; color: #fff; text-align: center;
+      padding: 20px; margin-top: 40px;
+    }
+
+    h4 { font-size: 18px; color:#505050; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="RoyHud Logo" style="height: 50px;">
+    <nav>
+      <table>
+        <tr>
+          <td><a href="index.html">Home</a></td>
+          <td><a href="contact.html">Contact</a></td>
+          <td><a href="k-kdmv.html"><img src="khmer.png" style="width: 30px;"></a></td>
+          <td><a href="kdmv.html"><img src="uk.png" style="width: 30px;"></a></td>
+        </tr>
+      </table>
+    </nav>
+  </header>
+
+    <marquee>This website is created by Seng Bunnarong SW4, 23th Gen, 1st year, 2nd semester for WDI final project and taught by teacher Ry Visan (SETEC INSTITUTE)</marquee>
+
+
+  <!-- Categories Bar -->
+  <div class="categories-bar">
+    <a href="corteiz.html">Corteiz</a>
+    <a href="denim.html">Denim Tears</a>
+    <a href="sp5der.html">Sp5der</a>
+    <a href="kdmv.html">UN:CM</a>
+  </div>
+
+  <!-- Video Cover -->
+  <div class="video-cover">
+    <video autoplay muted loop playsinline>
+      <source src="kdmv.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Main Section -->
+  <main class="container">
+    <!-- Left Sidebar -->
+    <aside class="brandlists">
+      <h3>Brands</h3>
+      <div class="brand-item"><div class="brand-info"><a href="corteiz.html">Corteiz</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="denim.html">Denim Tears</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="sp5der.html">Sp5der</a></div></div>
+      <div class="brand-item"><div class="brand-info"><a href="#brandD">UN:CM</a></div></div>
+    </aside>
+
+    <!-- Products (Middle) -->
+    <section>
+      <!-- Brand A -->
+      <div id="brandD" class="brand-section">
+        <h2>UN:CM - Collections</h2>
+        <div class="products">
+          <div class="product"><span class="new-tag">New</span><img src="q.webp"><div class="product-content"><h4>PCMKR - Naga</h4><p>$47.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qq.webp"><div class="product-content"><h4>L'Equipe - Kdmu</h4><p>$48.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qqq.webp"><div class="product-content"><h4>Kdussy - Brown</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="qqqq.webp"><div class="product-content"><h4>Matrix - Black</h4><p>$50.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="k.webp"><div class="product-content"><h4>Akira - v2</h4><p>$47.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="kk.webp"><div class="product-content"><h4>KDMV O'S</h4><p>$48.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="kkk.webp"><div class="product-content"><h4>KDMV IS THE FUTURE</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="kkkk.webp"><div class="product-content"><h4>KDMV AOP</h4><p>$50.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="v.webp"><div class="product-content"><h4>PEACE DIVISION ARMY</h4><p>$47.99</p><a href="sign.html"><button>Add to Cart</button></a>></div></div>
+          <div class="product"><img src="vvvv.webp"><div class="product-content"><h4>MAXELL BOOTLEG</h4><p>$48.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="aq.webp"><div class="product-content"><h4>UN:COMMON UNIVERSITY</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="aqq.webp"><div class="product-content"><h4>WALTER WHITE UNI CREST</h4><p>$50.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="vv.webp"><div class="product-content"><h4>GROWING UP SUCK</h4><p>$47.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="vvv.webp"><div class="product-content"><h4>KDMH - v2</h4><p>$48.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="j.webp"><div class="product-content"><h4>KDMH PINK</h4><p>$49.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+          <div class="product"><img src="jj.webp"><div class="product-content"><h4>KDMH PURPLE</h4><p>$50.99</p><a href="sign.html"><button>Add to Cart</button></a></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑ Top</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 RoyHud. All rights reserved.</p>
+  </footer>
+</body>
+</html>

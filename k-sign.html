@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RoyHud - Sign Up</title>
+  <link rel="icon" href="star.gif">
+    <!-- Khmer Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Noto Serif Khmer', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: #111;
+      color: #fff;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+        marquee {
+      font-style: oblique;
+      background-color: #111;
+      color: rgb(177, 177, 177);
+      background-size: cover;
+    }
+    header h1 {
+      font-size: 22px;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #f39c12;
+    }
+
+    /* Signup Box */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .signup-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .signup-box h2 {
+      margin-bottom: 20px;
+      color: #111;
+    }
+    .signup-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+    .signup-box button {
+      width: 100%;
+      padding: 12px;
+      background: #111;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .signup-box button:hover {
+      background: #f39c12;
+    }
+    .signup-box p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #666;
+    }
+    .signup-box a {
+      color: #111;
+      text-decoration: none;
+    }
+    .signup-box a:hover {
+      color: #f39c12;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <img src="logo.png" alt="RoyHud Logo" style="height: 50px;">
+    <nav>
+      <table>
+        <tr>
+          <td><a href="index.html">ទំព័ដើម</a></td>
+          <td><a href="contact.html">ទាក់ទង</a></td>
+          <td><a href="k-sign.html"><img src="khmer.png" style="width: 30px;"></a></td>
+          <td><a href="sign.html"><img src="uk.png" style="width: 30px;"></a></td>
+        </tr>
+      </table>
+    </nav>
+  </header>
+    <marquee>This website is created by Seng Bunnarong SW4, 23th Gen, 1st year, 2nd semester for WDI final project and taught by teacher Ry Visan (SETEC INSTITUTE)</marquee>
+
+
+  <!-- Signup Form -->
+  <main>
+    <div class="signup-box">
+      <h2>បង្កើតគណនី</h2>
+      <form action="index.html" method="get">
+        <input type="text" name="fullname" placeholder="ឈ្មោះពេញ" required>
+        <input type="email" name="email" placeholder="អ៊ីមែល" required>
+        <input type="password" name="password" placeholder="លេខកូដ" required>
+        <button type="submit">បង្កើត</button>
+      </form>
+      <p>មានគណនីរួចហើយ? <a href="index.html">ត្រឡប់ទៅវិញ</a></p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 RoyHud. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
